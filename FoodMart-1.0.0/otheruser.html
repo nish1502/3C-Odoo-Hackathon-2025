@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile | Skill Swap</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        /* Profile Header */
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #4CAF50;
+            margin-bottom: 15px;
+        }
+
+        .profile-name {
+            font-size: 28px;
+            margin: 5px 0;
+            color: #2c3e50;
+        }
+
+        .profile-location {
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+
+        .profile-rating {
+            color: #f39c12;
+            font-weight: bold;
+        }
+
+        .profile-availability {
+            color: #27ae60;
+            font-size: 14px;
+        }
+
+        /* About Section */
+        .about-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        /* Stats Section */
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .stat-box {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            width: 30%;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        /* Skills Section */
+        .skills-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .skills-columns {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .skills-column {
+            width: 48%;
+        }
+
+        .skills-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            background-color: #e0f7fa;
+            color: #00838f;
+            padding: 5px 10px;
+            border-radius: 15px;
+            margin: 0 5px 5px 0;
+            font-size: 14px;
+        }
+
+        .skill-tag.wanted {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        /* Button */
+        .request-button {
+            display: block;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 20px 0;
+            transition: background-color 0.3s;
+        }
+
+        .request-button:hover {
+            background-color: #45a049;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .review {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .review:last-child {
+            border-bottom: none;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .reviewer-name {
+            font-weight: bold;
+        }
+
+        .review-time {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Profile Header -->
+    <div class="profile-header">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile Picture" class="profile-pic">
+        <h1 class="profile-name">Sarah Johnson</h1>
+        <div class="profile-location">New York, NY</div>
+        <div class="profile-rating">4.8 (23 reviews)</div>
+        <div class="profile-availability">Available evenings</div>
+    </div>
+
+    <!-- About Section -->
+    <div class="about-section">
+        <h2 class="section-title">About</h2>
+        <p>I'm a passionate UI/UX designer with 5 years of experience creating beautiful and functional digital experiences. I love helping others learn design principles while expanding my technical skills in web development.</p>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="stats-container">
+        <div class="stat-box">
+            <div class="stat-number">15</div>
+            <div class="stat-label">Completed Swaps</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">23</div>
+            <div class="stat-label">Reviews</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">4.8</div>
+            <div class="stat-label">Rating</div>
+        </div>
+    </div>
+
+    <!-- Skills Section -->
+    <div class="skills-section">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-columns">
+            <div class="skills-column">
+                <div class="skills-title">Skills Offered</div>
+                <div>
+                    <span class="skill-tag">Web Design</span>
+                    <span class="skill-tag">UI/UX</span>
+                    <span class="skill-tag">Figma</span>
+                    <span class="skill-tag">Adobe Creative Suite</span>
+                </div>
+            </div>
+            <div class="skills-column">
+                <div class="skills-title">Skills Wanted</div>
+                <div>
+                    <span class="skill-tag wanted">React</span>
+                    <span class="skill-tag wanted">TypeScript</span>
+                    <span class="skill-tag wanted">GraphQL</span>
+                    <span class="skill-tag wanted">Node.js</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Request Button -->
+    <a href="#request-swap" class="request-button">Request Swap</a>
+
+    <!-- Reviews Section -->
+    <div class="reviews-section">
+        <h2 class="section-title">Reviews & Feedback</h2>
+        <div class="review">
+            <div class="review-header">
+                <span class="reviewer-name">Mike Chen</span>
+                <span class="review-time">2 weeks ago</span>
+            </div>
+            <p>Sarah is an amazing teacher! Her design feedback was incredibly detailed and helped me improve my portfolio significantly.</p>
+        </div>
+        <div class="review">
+            <div class="review-header">
+                <span class="reviewer-name">Lisa Wang</span>
+                <span class="review-time">1 month ago</span>
+            </div>
+            <p>Great communication and very patient. Learned a lot about Figma in our sessions.</p>
+        </div>
+    </div>
+</body>
+</html>

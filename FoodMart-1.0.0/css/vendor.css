@@ -250,3 +250,142 @@ body.chocolat-open > .chocolat-image-wrapper {
 .chocolat-zoomable.chocolat-zooming-out .chocolat-img {
     transition: margin .2s ease;
 }
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-header {
+    margin-bottom: 15px;
+}
+
+.card-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+}
+
+.card-location {
+    color: #666;
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+.card-rating {
+    display: flex;
+    align-items: center;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.card-section {
+    margin: 15px 0;
+}
+
+.card-section-title {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.card-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-tag {
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    color: #333;
+}
+
+.offer-tag {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.want-tag {
+    background-color: #e8f5e9;
+    color: #388e3c;
+}
+
+.card-availability {
+    margin-top: auto;
+    color: #666;
+    font-size: 0.9rem;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+.swap-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 15px;
+    align-self: flex-start;
+    transition: background-color 0.3s;
+}
+
+.swap-button:hover {
+    background-color: #388e3c;
+}
+
+.divider {
+    height: 1px;
+    background-color: #eee;
+    margin: 15px 0;
+}
+.svg-container {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .svg-container svg {
+    width: 100%;
+    height: auto;
+    max-height: 400px; /* Adjust as needed */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .banner-content {
+      flex-direction: column;
+    }
+    .img-wrapper {
+      order: -1; /* Move image above text on mobile */
+      margin-bottom: 20px;
+    }
+    .svg-container svg {
+      max-height: 300px;
+    }
+  }
