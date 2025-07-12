@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Broadcast Message</title>
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+<body id="page-top">
+
+<div id="wrapper">
+   <!-- Sidebar -->
+  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-user-cog"></i></div>
+        <div class="sidebar-brand-text mx-3">Skill Swap Admin</div>
+    </a>
+    <hr class="sidebar-divider my-0" />
+
+    <li class="nav-item active">
+        <a class="nav-link" href="admin-dashboard.html">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="review-skills.html"><i class="fas fa-spell-check"></i><span>Review Skills</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="users.html"><i class="fas fa-users"></i><span>Users</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="swap-requests.html"><i class="fas fa-comment-dots"></i><span>Swap Requests</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="reports.html"><i class="fas fa-download"></i><span>Reports</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="admin-message.html"><i class="fas fa-spell-check"></i><span>Broadcast Message</span></a>
+    </li>
+</ul>
+<!-- End Sidebar -->
+
+    <!-- Main Content -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content" class="p-4">
+            <h1 class="h3 mb-4 text-gray-800">Broadcast Message</h1>
+
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <form id="broadcastForm">
+                        <div class="form-group">
+                            <label for="broadcastText">Message to all users:</label>
+                            <textarea id="broadcastText" class="form-control" rows="5" required></textarea>
+                        </div>
+                        <button class="btn btn-primary">Send Message</button>
+                        <button class="btn btn-secondary ml-2" type="button" onclick="clearBroadcast()">Clear</button>
+                    </form>
+                    <hr>
+                    <h5 class="mt-3">Current Broadcast:</h5>
+                    <p id="currentMsg" class="text-info font-weight-bold"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script>
+    const broadcastInput = document.getElementById("broadcastText");
+    const currentMsg = document.getElementById("currentMsg");
+
+    function loadMessage() {
+        const msg = localStorage.getItem("broadcastMessage") || "No message set.";
+        currentMsg.textContent = msg;
+    }
+
+    document.getElementById("broadcastForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const msg = broadcastInput.value.trim();
+        if (msg.length > 0) {
+            localStorage.setItem("broadcastMessage", msg);
+            alert("Message sent to all users!");
+            broadcastInput.value = "";
+            loadMessage();
+        }
+    });
+
+    function clearBroadcast() {
+        if (confirm("Clear the current broadcast message?")) {
+            localStorage.removeItem("broadcastMessage");
+            loadMessage();
+        }
+    }
+
+    loadMessage();
+</script>
+</body>
+</html>

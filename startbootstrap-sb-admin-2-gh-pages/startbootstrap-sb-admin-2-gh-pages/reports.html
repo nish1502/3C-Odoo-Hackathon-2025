@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Admin - Download Reports</title>
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+<body id="page-top">
+
+<div id="wrapper">
+
+     <!-- Sidebar -->
+     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+            <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-user-cog"></i></div>
+            <div class="sidebar-brand-text mx-3">Skill Swap Admin</div>
+        </a>
+        <hr class="sidebar-divider my-0" />
+
+        <li class="nav-item active">
+            <a class="nav-link" href="admin-dashboard.html">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="review-skills.html"><i class="fas fa-spell-check"></i><span>Review Skills</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="users.html"><i class="fas fa-users"></i><span>Users</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="swap-requests.html"><i class="fas fa-comment-dots"></i><span>Swap Requests</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="reports.html"><i class="fas fa-download"></i><span>Reports</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="admin-message.html"><i class="fas fa-spell-check"></i><span>Broadcast Message</span></a>
+        </li>
+    </ul>
+    <!-- End Sidebar -->
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content" class="container-fluid mt-4">
+
+            <h1 class="h3 text-gray-800 mb-4">Download Reports</h1>
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card shadow mb-4">
+                        <div class="card-body text-center">
+                            <h5>User Activity Report</h5>
+                            <button onclick="downloadUserReport()" class="btn btn-primary mt-2">
+                                <i class="fas fa-file-csv mr-1"></i> Download Users
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow mb-4">
+                        <div class="card-body text-center">
+                            <h5>Feedback Logs</h5>
+                            <button onclick="downloadFeedbackReport()" class="btn btn-success mt-2">
+                                <i class="fas fa-comments mr-1"></i> Download Feedback
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow mb-4">
+                        <div class="card-body text-center">
+                            <h5>Swap Statistics</h5>
+                            <button onclick="downloadSwapReport()" class="btn btn-warning mt-2">
+                                <i class="fas fa-random mr-1"></i> Download Swaps
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white mt-4">
+            <div class="container my-auto text-center">
+                <span>© Skill Swap Admin Panel 2025</span>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/sb-admin-2.min.js"></script>
+
+<script>
+    function exportToCSV(filename, rows) {
+        const csvContent = rows.map(e => e.join(",")).join("\n");
+        const blob = new Blob([csvContent], { type: "text/csv" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.click();
+    }
+
+    function downloadUserReport() {
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+        const rows = [
+            ["Name", "Email", "Location", "Skills Offered", "Skills Wanted", "Availability", "Status"]
+        ];
+        users.forEach(user => {
+            rows.push([
+                user.name,
+                user.email,
+                user.location,
+                (user.skillsOffered || []).join(" | "),
+                (user.skillsWanted || []).join(" | "),
+                user.availability,
+                user.accountStatus
+            ]);
+        });
+        exportToCSV("users_report.csv", rows);
+    }
+
+    function downloadFeedbackReport() {
+        const feedback = JSON.parse(localStorage.getItem("feedback")) || [];
+        const rows = [["Name", "Email", "Message", "Date"]];
+        feedback.forEach(f => {
+            rows.push([f.name, f.email, `"${f.message}"`, f.date]);
+        });
+        exportToCSV("feedback_report.csv", rows);
+    }
+
+    function downloadSwapReport() {
+        const swaps = JSON.parse(localStorage.getItem("swaps")) || [];
+        const rows = [["User From", "User To", "Skill Offered", "Skill Requested", "Status", "Date"]];
+        swaps.forEach(s => {
+            rows.push([
+                s.fromName,
+                s.toName,
+                s.offered,
+                s.requested,
+                s.status,
+                s.date
+            ]);
+        });
+        exportToCSV("swap_report.csv", rows);
+    }
+</script>
+</body>
+</html>

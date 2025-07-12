@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Admin Dashboard - Skill Swap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- SB Admin 2 CSS -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+            <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-user-cog"></i></div>
+            <div class="sidebar-brand-text mx-3">Skill Swap Admin</div>
+        </a>
+        <hr class="sidebar-divider my-0" />
+
+        <li class="nav-item active">
+            <a class="nav-link" href="admin-dashboard.html">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="review-skills.html"><i class="fas fa-spell-check"></i><span>Review Skills</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="users.html"><i class="fas fa-users"></i><span>Users</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="swap-requests.html"><i class="fas fa-comment-dots"></i><span>Swap Requests</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="reports.html"><i class="fas fa-download"></i><span>Reports</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="admin-message.html"><i class="fas fa-spell-check"></i><span>Broadcast Message</span></a>
+        </li>
+    </ul>
+    <!-- End Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <h5 class="m-0 font-weight-bold text-primary">Admin Dashboard</h5>
+            </nav>
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Metric Cards -->
+                <div class="row">
+                    <div class="col-md-3 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Users</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalUsers">0</div>
+                                </div>
+                                <i class="fas fa-users fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Swaps</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalSwaps">0</div>
+                                </div>
+                                <i class="fas fa-exchange-alt fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Banned Users</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="bannedUsers">0</div>
+                                </div>
+                                <i class="fas fa-user-slash fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Feedback Received</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="feedbackCount">0</div>
+                                </div>
+                                <i class="fas fa-comments fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="row">
+                    <div class="col-xl-8 col-lg-7 mb-4">
+                        <div class="card shadow">
+                            <div class="card-header font-weight-bold text-primary">Swap Activity Overview</div>
+                            <div class="card-body">
+                                <canvas id="swapChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-5 mb-4">
+                        <div class="card shadow">
+                            <div class="card-header font-weight-bold text-primary">Top Skills Requested</div>
+                            <div class="card-body">
+                                <canvas id="skillsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Section -->
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow">
+                            <div class="card-header font-weight-bold text-primary">Recent Feedback</div>
+                            <div class="card-body" id="feedbackList">Loading...</div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow">
+                            <div class="card-header font-weight-bold text-primary">Quick Actions</div>
+                            <div class="card-body">
+                                <button class="btn btn-success btn-block mb-2" onclick="location.href='review-skills.html'">Review Skills</button>
+                                <button class="btn btn-primary btn-block mb-2" onclick="location.href='users.html'">Manage Users</button>
+                                <button class="btn btn-warning btn-block mb-2" onclick="location.href='feedback.html'">Moderate Feedback</button>
+                                <button class="btn btn-info btn-block" onclick="location.href='reports.html'">Download Reports</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Content -->
+
+        <footer class="sticky-footer bg-white">
+            <div class="container text-center">
+                <span>© Skill Swap Admin 2025</span>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<!-- JS Includes -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/chart.js/Chart.min.js"></script>
+<script src="js/sb-admin-2.min.js"></script>
+
+<!-- Custom Dashboard Logic -->
+<script>
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const feedback = JSON.parse(localStorage.getItem("feedback")) || [];
+    const swaps = JSON.parse(localStorage.getItem("swaps")) || [];
+
+    document.getElementById("totalUsers").innerText = users.length;
+    document.getElementById("feedbackCount").innerText = feedback.length;
+    document.getElementById("totalSwaps").innerText = swaps.length;
+    document.getElementById("bannedUsers").innerText = users.filter(u => u.accountStatus === "Banned").length;
+
+    // Swap Chart (fake monthly data)
+    const ctx1 = document.getElementById("swapChart").getContext("2d");
+    new Chart(ctx1, {
+        type: "line",
+        data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+            datasets: [{
+                label: "Swaps",
+                data: [5, 8, 10, 15, 12, 20, 25],
+                borderColor: "#4e73df",
+                backgroundColor: "rgba(78, 115, 223, 0.1)"
+            }]
+        }
+    });
+
+    // Skills Chart (top 5)
+    const skillCounts = {};
+    users.forEach(u => (u.skillsWanted || []).forEach(skill => {
+        skillCounts[skill] = (skillCounts[skill] || 0) + 1;
+    }));
+    const topSkills = Object.entries(skillCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+
+    const ctx2 = document.getElementById("skillsChart").getContext("2d");
+    new Chart(ctx2, {
+        type: "bar",
+        data: {
+            labels: topSkills.map(x => x[0]),
+            datasets: [{
+                label: "Requests",
+                data: topSkills.map(x => x[1]),
+                backgroundColor: "#1cc88a"
+            }]
+        }
+    });
+
+    // Load recent feedback
+    const feedbackList = document.getElementById("feedbackList");
+    if (feedback.length === 0) {
+        feedbackList.innerHTML = "<p>No feedback yet.</p>";
+    } else {
+        feedbackList.innerHTML = feedback.slice(-5).reverse().map(f =>
+            `<div class="mb-2"><strong>${f.user}:</strong> ${f.message}</div>`
+        ).join("");
+    }
+</script>
+
+</body>
+</html>

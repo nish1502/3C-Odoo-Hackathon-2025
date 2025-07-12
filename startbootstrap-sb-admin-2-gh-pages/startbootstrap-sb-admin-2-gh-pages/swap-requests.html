@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Admin - Swap Requests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- SB Admin 2 CSS -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+     <!-- Sidebar -->
+     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+            <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-user-cog"></i></div>
+            <div class="sidebar-brand-text mx-3">Skill Swap Admin</div>
+        </a>
+        <hr class="sidebar-divider my-0" />
+
+        <li class="nav-item active">
+            <a class="nav-link" href="admin-dashboard.html">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="review-skills.html"><i class="fas fa-spell-check"></i><span>Review Skills</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="users.html"><i class="fas fa-users"></i><span>Users</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="swap-requests.html"><i class="fas fa-comment-dots"></i><span>Swap Requests</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="reports.html"><i class="fas fa-download"></i><span>Reports</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="admin-message.html"><i class="fas fa-spell-check"></i><span>Broadcast Message</span></a>
+        </li>
+    </ul>
+    <!-- End Sidebar --
+
+    <!-- Content -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow">
+                <h4 class="m-0 font-weight-bold text-primary">Admin Panel - Swap Requests</h4>
+            </nav>
+
+            <!-- Main Container -->
+            <div class="container-fluid">
+                <h1 class="h4 mb-4 text-gray-800">Monitor Swap Requests</h1>
+
+                <!-- Filter -->
+                <div class="mb-3">
+                    <label for="filterStatus" class="font-weight-bold">Filter by Status:</label>
+                    <select id="filterStatus" class="form-control w-25" onchange="loadSwaps()">
+                        <option value="all">All</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Accepted">Accepted</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+
+                <!-- Table -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">All Swap Requests</h6>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table class="table table-bordered" width="100%">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Offered Skill</th>
+                                    <th>Wanted Skill</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="swapTableBody">
+                                <!-- Filled by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="text-center my-auto">
+                    <span>© Skill Swap Admin 2025</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/sb-admin-2.min.js"></script>
+
+<script>
+    function loadSwaps() {
+        const swaps = JSON.parse(localStorage.getItem("swapRequests")) || [];
+        const filter = document.getElementById("filterStatus").value;
+        const tbody = document.getElementById("swapTableBody");
+        tbody.innerHTML = "";
+
+        swaps.forEach((swap, index) => {
+            if (filter !== "all" && swap.status !== filter) return;
+
+            tbody.innerHTML += `
+                <tr>
+                    <td>${swap.from}</td>
+                    <td>${swap.to}</td>
+                    <td>${swap.offered}</td>
+                    <td>${swap.wanted}</td>
+                    <td><span class="badge badge-${getBadgeColor(swap.status)}">${swap.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-success" onclick="updateStatus(${index}, 'Accepted')">Accept</button>
+                        <button class="btn btn-sm btn-danger" onclick="updateStatus(${index}, 'Cancelled')">Cancel</button>
+                    </td>
+                </tr>
+            `;
+        });
+    }
+
+    function getBadgeColor(status) {
+        if (status === "Pending") return "warning";
+        if (status === "Accepted") return "success";
+        if (status === "Cancelled") return "danger";
+        return "secondary";
+    }
+
+    function updateStatus(index, newStatus) {
+        const swaps = JSON.parse(localStorage.getItem("swapRequests")) || [];
+        swaps[index].status = newStatus;
+        localStorage.setItem("swapRequests", JSON.stringify(swaps));
+        loadSwaps();
+    }
+
+    window.onload = loadSwaps;
+</script>
+
+</body>
+</html>
