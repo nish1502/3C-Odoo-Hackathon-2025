@@ -209,31 +209,28 @@
     const emailDisplay = document.getElementById("profileEmailDisplay");
     const certificateInput = document.getElementById("certificateFile");
     const certificateName = document.getElementById("certificateName");
-
+  
     let certificateData = "";
-
+  
     window.onload = () => {
       const email = localStorage.getItem("loggedInEmail") || "demo@example.com";
       emailInput.value = email;
       emailDisplay.textContent = email;
-
+  
       const savedProfile = JSON.parse(localStorage.getItem("profileData") || "{}");
-
+  
       nameInput.value = savedProfile.name || "";
       phoneInput.value = savedProfile.phone || "";
-      skillsInput.value = savedProfile.skills || "";
       availabilitySelect.value = savedProfile.availability || "Select availability";
       locationInput.value = savedProfile.location || "";
       bioInput.value = savedProfile.bio || "";
-      skillsOfferedInput.value = savedProfile.skillsOffered || "";
-      skillsWantedInput.value = savedProfile.skillsWanted || "";
+      skillsOfferedInput.value = (savedProfile.skillsOffered || []).join(", ");
+      skillsWantedInput.value = (savedProfile.skillsWanted || []).join(", ");
       visibilitySwitch.checked = savedProfile.isPublic || false;
       nameDisplay.textContent = savedProfile.name || "Your Name";
-
-      if (savedProfile.profilePic) {
-        profilePicDisplay.src = savedProfile.profilePic;
-      }
-
+  
+      if (savedProfile.profilePic) profilePicDisplay.src = savedProfile.profilePic;
+  
       if (savedProfile.certificate) {
         certificateData = savedProfile.certificate;
         certificateName.innerText = "View Uploaded Certificate";
@@ -243,7 +240,7 @@
         };
       }
     };
-
+  
     profilePic.addEventListener("change", () => {
       const reader = new FileReader();
       reader.onload = () => {
@@ -251,7 +248,7 @@
       };
       reader.readAsDataURL(profilePic.files[0]);
     });
-
+  
     certificateInput.addEventListener("change", () => {
       const file = certificateInput.files[0];
       const reader = new FileReader();
@@ -265,27 +262,42 @@
       };
       reader.readAsDataURL(file);
     });
-
+  
     document.getElementById("profileForm").addEventListener("submit", (e) => {
       e.preventDefault();
+      const email = emailInput.value;
       const profileData = {
+        email,
         name: nameInput.value,
         phone: phoneInput.value,
-        skills: skillsInput.value,
         availability: availabilitySelect.value,
         location: locationInput.value,
         bio: bioInput.value,
-        skillsOffered: skillsOfferedInput.value,
-        skillsWanted: skillsWantedInput.value,
+        skillsOffered: (skillsOfferedInput.value || "").split(",").map(s => s.trim()),
+        skillsWanted: (skillsWantedInput.value || "").split(",").map(s => s.trim()),
         isPublic: visibilitySwitch.checked,
         profilePic: profilePicDisplay.src,
-        certificate: certificateData
+        certificate: certificateData,
+        accountStatus: "Active"
       };
+  
       localStorage.setItem("profileData", JSON.stringify(profileData));
-      nameDisplay.textContent = nameInput.value || "Your Name";
-      alert("Profile saved successfully!");
+  
+      // Add/Update user in localStorage "users"
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+      const index = users.findIndex(u => u.email === email);
+      if (index >= 0) {
+        users[index] = profileData;
+      } else {
+        users.push(profileData);
+      }
+      localStorage.setItem("users", JSON.stringify(users));
+  
+      nameDisplay.textContent = profileData.name || "Your Name";
+      emailDisplay.textContent = profileData.email;
+      alert("Profile saved successfully and synced to admin!");
     });
-
+  
     document.getElementById("discardBtn").addEventListener("click", () => {
       if (confirm("Discard entire profile? This cannot be undone.")) {
         localStorage.removeItem("profileData");
@@ -293,5 +305,7 @@
       }
     });
   </script>
+  
+  
 </body>
 </html>
