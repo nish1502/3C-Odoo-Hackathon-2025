@@ -128,29 +128,33 @@
 <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="js/sb-admin-2.min.js"></script>
 
-<!-- LocalStorage Logic -->
 <script>
   function loadUsers() {
     const users = JSON.parse(localStorage.getItem("users")) || [];
     const tbody = document.getElementById("userTableBody");
     tbody.innerHTML = "";
 
+    if (users.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="7" class="text-center text-muted">No user profiles found.</td></tr>`;
+      return;
+    }
+
     users.forEach((user, index) => {
       const row = `
         <tr>
-          <td>${user.name}</td>
-          <td>${user.email}</td>
-          <td>${user.location}</td>
-          <td>${(user.skillsOffered || []).join(", ")}</td>
-          <td>${(user.skillsWanted || []).join(", ")}</td>
+          <td>${user.name || "—"}</td>
+          <td>${user.email || "—"}</td>
+          <td>${user.location || "—"}</td>
+          <td>${(user.skillsOffered || []).join(", ") || "—"}</td>
+          <td>${(user.skillsWanted || []).join(", ") || "—"}</td>
           <td>
-            <span class="badge ${user.accountStatus === 'Banned' ? 'badge-danger' : 'badge-success'}">
-              ${user.accountStatus}
+            <span class="badge ${user.accountStatus === 'Banned' ? 'bg-danger' : 'bg-success'}">
+              ${user.accountStatus || "Active"}
             </span>
           </td>
           <td>
-            <button class="btn btn-sm btn-info" onclick="viewUser(${index})">View</button>
-            <button class="btn btn-sm btn-warning" onclick="toggleBan(${index})">
+            <button class="btn btn-sm btn-info me-1" onclick="viewUser(${index})">View</button>
+            <button class="btn btn-sm btn-warning me-1" onclick="toggleBan(${index})">
               ${user.accountStatus === "Banned" ? "Unban" : "Ban"}
             </button>
             <button class="btn btn-sm btn-danger" onclick="deleteUser(${index})">Delete</button>
@@ -171,11 +175,11 @@
       <p><strong>Skills Offered:</strong> ${(user.skillsOffered || []).join(", ")}</p>
       <p><strong>Skills Wanted:</strong> ${(user.skillsWanted || []).join(", ")}</p>
       <p><strong>Availability:</strong> ${user.availability}</p>
-      <p><strong>Profile Status:</strong> ${user.profileStatus}</p>
       <p><strong>Account Status:</strong> ${user.accountStatus}</p>
     `;
     document.getElementById("userModalContent").innerHTML = html;
-    $('#viewUserModal').modal('show');
+    const modal = new bootstrap.Modal(document.getElementById("viewUserModal"));
+    modal.show();
   }
 
   function toggleBan(index) {
@@ -195,59 +199,7 @@
   }
 
   window.onload = loadUsers;
-
 </script>
-<script>
-  const userTableBody = document.getElementById("userTableBody");
-  const users = JSON.parse(localStorage.getItem("users")) || [];
-
-  if (users.length === 0) {
-    userTableBody.innerHTML = `<tr><td colspan="7" class="text-center text-muted">No user profiles found.</td></tr>`;
-  } else {
-    users.forEach((user, index) => {
-      const row = document.createElement("tr");
-
-      row.innerHTML = `
-        <td>${user.name || "—"}</td>
-        <td>${user.email || "—"}</td>
-        <td>${user.location || "—"}</td>
-        <td>${Array.isArray(user.skillsOffered) ? user.skillsOffered.join(", ") : user.skillsOffered || "—"}</td>
-        <td>${Array.isArray(user.skillsWanted) ? user.skillsWanted.join(", ") : user.skillsWanted || "—"}</td>
-        <td class="text-center">
-          <span class="badge ${user.accountStatus === "Banned" ? "bg-danger" : "bg-success"}">
-            ${user.accountStatus || "Active"}
-          </span>
-        </td>
-        <td class="text-center">
-          <button class="btn btn-sm btn-primary me-1" onclick="viewUser(${index})">
-            <i class="fas fa-eye"></i> View
-          </button>
-          <button class="btn btn-sm btn-danger" onclick="banUser(${index})">
-            <i class="fas fa-user-slash"></i> Ban
-          </button>
-        </td>
-      `;
-
-      userTableBody.appendChild(row);
-    });
-  }
-
-  function viewUser(index) {
-    const user = users[index];
-    alert(
-      `Full Profile:\n\nName: ${user.name}\nEmail: ${user.email}\nLocation: ${user.location}\nSkills Offered: ${user.skillsOffered}\nSkills Wanted: ${user.skillsWanted}\nStatus: ${user.accountStatus || "Active"}`
-    );
-  }
-
-  function banUser(index) {
-    if (confirm("Are you sure you want to ban this user?")) {
-      users[index].accountStatus = "Banned";
-      localStorage.setItem("users", JSON.stringify(users));
-      location.reload(); // refresh table
-    }
-  }
-</script>
-
 
 
 </body>

@@ -190,13 +190,14 @@
   <footer class="text-center bg-dark text-light py-3">
     &copy; 2025 FoodMart. All Rights Reserved.
   </footer>
-
+  
+  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
+    // Get input elements
     const emailInput = document.getElementById("email");
     const nameInput = document.getElementById("name");
     const phoneInput = document.getElementById("phone");
-    const skillsInput = document.getElementById("skills");
     const availabilitySelect = document.getElementById("availability");
     const locationInput = document.getElementById("location");
     const bioInput = document.getElementById("bio");
@@ -211,36 +212,41 @@
     const certificateName = document.getElementById("certificateName");
   
     let certificateData = "";
+    const loggedInEmail = localStorage.getItem("loggedInEmail") || "demo@example.com";
   
+    // Load user profile data from localStorage 'users'
     window.onload = () => {
-      const email = localStorage.getItem("loggedInEmail") || "demo@example.com";
-      emailInput.value = email;
-      emailDisplay.textContent = email;
+      emailInput.value = loggedInEmail;
+      emailDisplay.textContent = loggedInEmail;
   
-      const savedProfile = JSON.parse(localStorage.getItem("profileData") || "{}");
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+      const currentUser = users.find(u => u.email === loggedInEmail);
   
-      nameInput.value = savedProfile.name || "";
-      phoneInput.value = savedProfile.phone || "";
-      availabilitySelect.value = savedProfile.availability || "Select availability";
-      locationInput.value = savedProfile.location || "";
-      bioInput.value = savedProfile.bio || "";
-      skillsOfferedInput.value = (savedProfile.skillsOffered || []).join(", ");
-      skillsWantedInput.value = (savedProfile.skillsWanted || []).join(", ");
-      visibilitySwitch.checked = savedProfile.isPublic || false;
-      nameDisplay.textContent = savedProfile.name || "Your Name";
-  
-      if (savedProfile.profilePic) profilePicDisplay.src = savedProfile.profilePic;
-  
-      if (savedProfile.certificate) {
-        certificateData = savedProfile.certificate;
-        certificateName.innerText = "View Uploaded Certificate";
-        certificateName.onclick = () => {
-          const win = window.open();
-          win.document.write(`<iframe src="${certificateData}" width="100%" height="100%"></iframe>`);
-        };
+      if (currentUser) {
+        nameInput.value = currentUser.name || "";
+        phoneInput.value = currentUser.phone || "";
+        availabilitySelect.value = currentUser.availability || "Select availability";
+        locationInput.value = currentUser.location || "";
+        bioInput.value = currentUser.bio || "";
+        skillsOfferedInput.value = (currentUser.skillsOffered || []).join(", ");
+        skillsWantedInput.value = (currentUser.skillsWanted || []).join(", ");
+        visibilitySwitch.checked = currentUser.isPublic || false;
+        nameDisplay.textContent = currentUser.name || "Your Name";
+        if (currentUser.profilePic) profilePicDisplay.src = currentUser.profilePic;
+        if (currentUser.certificate) {
+          certificateData = currentUser.certificate;
+          certificateName.innerText = "View Uploaded Certificate";
+          certificateName.onclick = () => {
+            const win = window.open();
+            win.document.write(`<iframe src="${certificateData}" width="100%" height="100%"></iframe>`);
+          };
+        }
+      } else {
+        nameDisplay.textContent = "Your Name";
       }
     };
   
+    // Profile picture upload
     profilePic.addEventListener("change", () => {
       const reader = new FileReader();
       reader.onload = () => {
@@ -249,6 +255,7 @@
       reader.readAsDataURL(profilePic.files[0]);
     });
   
+    // Certificate upload
     certificateInput.addEventListener("change", () => {
       const file = certificateInput.files[0];
       const reader = new FileReader();
@@ -263,11 +270,12 @@
       reader.readAsDataURL(file);
     });
   
+    // Save profile
     document.getElementById("profileForm").addEventListener("submit", (e) => {
       e.preventDefault();
-      const email = emailInput.value;
+  
       const profileData = {
-        email,
+        email: loggedInEmail,
         name: nameInput.value,
         phone: phoneInput.value,
         availability: availabilitySelect.value,
@@ -281,30 +289,36 @@
         accountStatus: "Active"
       };
   
-      localStorage.setItem("profileData", JSON.stringify(profileData));
-  
-      // Add/Update user in localStorage "users"
+      // Save to 'users' array
       let users = JSON.parse(localStorage.getItem("users")) || [];
-      const index = users.findIndex(u => u.email === email);
-      if (index >= 0) {
-        users[index] = profileData;
+      const existingIndex = users.findIndex(u => u.email === loggedInEmail);
+  
+      if (existingIndex >= 0) {
+        users[existingIndex] = profileData;
       } else {
         users.push(profileData);
       }
+  
       localStorage.setItem("users", JSON.stringify(users));
   
+      // Display confirmation
       nameDisplay.textContent = profileData.name || "Your Name";
       emailDisplay.textContent = profileData.email;
       alert("Profile saved successfully and synced to admin!");
     });
   
+    // Discard profile
     document.getElementById("discardBtn").addEventListener("click", () => {
-      if (confirm("Discard entire profile? This cannot be undone.")) {
-        localStorage.removeItem("profileData");
+      if (confirm("Are you sure you want to discard this profile? This cannot be undone.")) {
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+        users = users.filter(u => u.email !== loggedInEmail);
+        localStorage.setItem("users", JSON.stringify(users));
         location.reload();
       }
     });
   </script>
+  
+  
   
   
 </body>
