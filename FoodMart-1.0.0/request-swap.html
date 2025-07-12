@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Skill Swap - Request Skill Exchange</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="">
+    <meta name="keywords" content="skill swap, exchange skills, learn skills">
+    <meta name="description" content="Exchange your skills with others in the Skill Swap community">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/vendor.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <style>
+      /* Custom Skill Swap colors */
+      :root {
+        --skillswap-primary: #6c5ce7;
+        --skillswap-secondary: #00cec9;
+        --skillswap-accent: #fd79a8;
+      }
+      .btn-primary {
+        background-color: var(--skillswap-primary);
+        border-color: var(--skillswap-primary);
+      }
+      .bg-primary {
+        background-color: var(--skillswap-primary) !important;
+      }
+      .text-primary {
+        color: var(--skillswap-primary) !important;
+      }
+      .badge.bg-primary {
+        background-color: var(--skillswap-primary) !important;
+      }
+      .badge.bg-success {
+        background-color: var(--skillswap-secondary) !important;
+      }
+      
+      /* Request Swap Card */
+      .swap-card {
+        border-radius: 1rem;
+        box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+        overflow: hidden;
+      }
+      .swap-header {
+        background-color: var(--skillswap-primary);
+        color: white;
+        padding: 1.5rem;
+      }
+      .skill-badge {
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="preloader-wrapper">
+      <div class="preloader">
+      </div>
+    </div>
+
+    <header>
+      <div class="container-fluid">
+        <div class="row py-3 border-bottom">
+          
+          <div class="col-sm-4 col-lg-3 text-center text-sm-start">
+            <div class="main-logo">
+              <a href="index.html" class="d-flex align-items-center text-decoration-none">
+                <!-- SVG Logo -->
+                <svg width="40" height="40" viewBox="0 0 40 40" class="me-2">
+                  <circle cx="20" cy="20" r="18" fill="none" stroke="#6c5ce7" stroke-width="2"/>
+                  <path fill="#6c5ce7" d="M12 15l5 5-5 5h3l5-5-5-5h-3zm13 0l-5 5 5 5h3l-5-5 5-5h-3z"/>
+                </svg>
+                <span class="fs-4 fw-bold" style="color: #6c5ce7;">Skill Swap</span>
+              </a>
+            </div>
+          </div>
+          
+          <div class="col-sm-8 col-lg-4 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
+            <ul class="d-flex justify-content-end list-unstyled m-0">
+              <li>
+                <a href="user-profile.html" class="rounded-circle bg-light p-2 mx-1" title="My Profile">
+                  <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#user"></use>
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    
+    <section class="py-5">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="swap-card">
+              <div class="swap-header">
+                <h2 class="mb-0 text-white">Request Skill Swap</h2>
+                <p class="mb-0 text-white-50">Proposing exchange with Sarah Johnson</p>
+              </div>
+              <div class="card-body p-5">
+                
+                <div class="row mb-4">
+                  <div class="col-md-6 mb-3 mb-md-0">
+                    <h5 class="mb-3">They offer:</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                      <span class="skill-badge bg-primary">Web Design</span>
+                      <span class="skill-badge bg-primary">UI/UX</span>
+                      <span class="skill-badge bg-primary">Figma</span>
+                      <span class="skill-badge bg-primary">Adobe Creative Suite</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <h5 class="mb-3">They want:</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                      <span class="skill-badge bg-success">React</span>
+                      <span class="skill-badge bg-success">TypeScript</span>
+                      <span class="skill-badge bg-success">Node.js</span>
+                      <span class="skill-badge bg-success">GraphQL</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="alert alert-light mb-4">
+                  <svg width="20" height="20" viewBox="0 0 24 24" class="me-2" fill="#6c5ce7">
+                    <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/>
+                    <path d="M12 7a1 1 0 0 0-1 1v5a1 1 0 0 0 2 0V8a1 1 0 0 0-1-1zm0 8a1 1 0 1 0 1 1 1 1 0 0 0-1-1z"/>
+                  </svg>
+                  <strong>Available:</strong> Evenings (6PM-10PM)
+                </div>
+                
+                <form>
+                  <div class="mb-4">
+                    <label for="teachSkill" class="form-label fw-bold">I can teach them:</label>
+                    <select class="form-select form-select-lg" id="teachSkill" required>
+                      <option value="">Select a skill you can offer</option>
+                      <option>React</option>
+                      <option>TypeScript</option>
+                      <option>Node.js</option>
+                      <option>GraphQL</option>
+                      <option>JavaScript</option>
+                      <option>Python</option>
+                      <option>Django</option>
+                    </select>
+                  </div>
+                  
+                  <div class="mb-4">
+                    <label for="learnSkill" class="form-label fw-bold">I want to learn:</label>
+                    <select class="form-select form-select-lg" id="learnSkill" required>
+                      <option value="">Select a skill you want to learn</option>
+                      <option>Web Design</option>
+                      <option>UI/UX</option>
+                      <option>Figma</option>
+                      <option>Adobe Creative Suite</option>
+                      <option>Photoshop</option>
+                      <option>Illustrator</option>
+                    </select>
+                  </div>
+                  
+                  <div class="mb-4">
+                    <label for="message" class="form-label fw-bold">Message:</label>
+                    <textarea class="form-control" id="message" rows="5" placeholder="Introduce yourself and explain what you'd like to learn and teach. Be specific about your availability and expectations." required></textarea>
+                  </div>
+                  
+                  <div class="mb-4">
+                    <label class="form-label fw-bold">Proposed Time:</label>
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <input type="date" class="form-control form-control-lg" required>
+                      </div>
+                      <div class="col-md-6">
+                        <select class="form-select form-select-lg" required>
+                          <option value="">Select time slot</option>
+                          <option>6:00 PM - 7:00 PM</option>
+                          <option>7:00 PM - 8:00 PM</option>
+                          <option>8:00 PM - 9:00 PM</option>
+                          <option>9:00 PM - 10:00 PM</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="d-grid gap-3">
+                    <button type="submit" class="btn btn-primary btn-lg py-3">Send Swap Request</button>
+                    <button type="button" class="btn btn-outline-secondary btn-lg py-3">Cancel</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="py-5 bg-light">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="footer-menu">
+              <div class="d-flex align-items-center mb-3">
+                <svg width="30" height="30" viewBox="0 0 40 40" class="me-2">
+                  <circle cx="20" cy="20" r="18" fill="none" stroke="#6c5ce7" stroke-width="2"/>
+                  <path fill="#6c5ce7" d="M12 15l5 5-5 5h3l5-5-5-5h-3zm13 0l-5 5 5 5h3l-5-5 5-5h-3z"/>
+                </svg>
+                <span class="fs-4 fw-bold" style="color: #6c5ce7;">Skill Swap</span>
+              </div>
+              <p class="text-muted">Exchange skills, grow together. Connect with professionals worldwide to teach and learn new skills.</p>
+              <div class="social-links mt-4">
+                <ul class="d-flex list-unstyled gap-2">
+                  <li>
+                    <a href="#" class="btn btn-outline-secondary">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M15.12 5.32H17V2.14A26.11 26.11 0 0 0 14.26 2c-2.72 0-4.58 1.66-4.58 4.7v2.62H6.61v3.56h3.07V22h3.68v-9.12h3.06l.46-3.56h-3.52V7.05c0-1.05.28-1.73 1.76-1.73Z"/></svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="btn btn-outline-secondary">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M22.991 3.95a1 1 0 0 0-1.51-.86a7.48 7.48 0 0 1-1.874.794a5.152 5.152 0 0 0-3.374-1.242a5.232 5.232 0 0 0-5.223 5.063a11.032 11.032 0 0 1-6.814-3.924a1.012 1.012 0 0 0-.857-.365a.999.999 0 0 0-.785.5a5.276 5.276 0 0 0-.242 4.769l-.002.001a1.041 1.041 0 0 0-.496.89a3.042 3.042 0 0 0 .027.439a5.185 5.185 0 0 0 1.568 3.312a.998.998 0 0 0-.066.77a5.204 5.204 0 0 0 2.362 2.922a7.465 7.465 0 0 1-3.59.448A1 1 0 0 0 1.45 19.3a12.942 12.942 0 0 0 7.01 2.061a12.788 12.788 0 0 0 12.465-9.363a12.822 12.822 0 0 0 .535-3.646l-.001-.2a5.77 5.77 0 0 0 1.532-4.202Zm-3.306 3.212a.995.995 0 0 0-.234.702c.01.165.009.331.009.488a10.824 10.824 0 0 1-.454 3.08a10.685 10.685 0 0 1-10.546 7.93a10.938 10.938 0 0 1-2.55-.301a9.48 9.48 0 0 0 2.942-1.564a1 1 0 0 0-.602-1.786a3.208 3.208 0 0 1-2.214-.935q.224-.042.445-.105a1 1 0 0 0-.08-1.943a3.198 3.198 0 0 1-2.25-1.726a5.3 5.3 0 0 0 .545.046a1.02 1.02 0 0 0 .984-.696a1 1 0 0 0-.4-1.137a3.196 3.196 0 0 1-1.425-2.673c0-.066.002-.133.006-.198a13.014 13.014 0 0 0 8.21 3.48a1.02 1.02 0 0 0 .817-.36a1 1 0 0 0 .206-.867a3.157 3.157 0 0 1-.087-.729a3.23 3.23 0 0 1 3.226-3.226a3.184 3.184 0 0 1 2.345 1.02a.993.993 0 0 0 .921.298a9.27 9.27 0 0 0 1.212-.322a6.681 6.681 0 0 1-1.026 1.524Z"/></svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="btn btn-outline-secondary">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M23 9.71a8.5 8.5 0 0 0-.91-4.13a2.92 2.92 0 0 0-1.72-1A78.36 78.36 0 0 0 12 4.27a78.45 78.45 0 0 0-8.34.3a2.87 2.87 0 0 0-1.46.74c-.9.83-1 2.25-1.1 3.45a48.29 48.29 0 0 0 0 6.48a9.55 9.55 0 0 0 .3 2a3.14 3.14 0 0 0 .71 1.36a2.86 2.86 0 0 0 1.49.78a45.18 45.18 0 0 0 6.5.33c3.5.05 6.57 0 10.2-.28a2.88 2.88 0 0 0 1.53-.78a2.49 2.49 0 0 0 .61-1a10.58 10.58 0 0 0 .52-3.4c.04-.56.04-3.94.04-4.54ZM9.74 14.85V8.66l5.92 3.11c-1.66.92-3.85 1.96-5.92 3.08Z"/></svg>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-6">
+            <div class="footer-menu">
+              <h5 class="widget-title">Quick Links</h5>
+              <ul class="menu-list list-unstyled">
+                <li class="menu-item">
+                  <a href="#" class="nav-link">How it works</a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="nav-link">Browse Skills</a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="nav-link">Success Stories</a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="nav-link">Pricing</a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="nav-link">Blog</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <div class="footer-menu">
+              <h5 class="widget-title">Support</h5>
+              <ul class="menu-list list-unstyled">
+                <li class="menu-item">
+                  <a href="#" class="nav-link">Help Center</a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="nav-link">Safety Tips</a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="nav-link">Community Guidelines</a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="nav-link">Privacy Policy</a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="nav-link">Terms of Service</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <div id="footer-bottom">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <p class="mb-0">© 2025 Skill Swap. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
