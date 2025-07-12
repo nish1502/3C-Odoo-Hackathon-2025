@@ -5,13 +5,13 @@
 - **Team Name**: 3C(Code. Coffee. Chaos)
 - **Hackathon**: Odoo Hackathon 2025  
 - **Team Mentor**: Ajitkumar Krishnanand Singh - aksi-odoo
-- 
+  
 ### 👨‍💻 Team Members
 
 - Nishita Kapkar (Team Leader) - nish1502
 - Mrunmai Kadam - mrunmai27
 - Aditi Honagekar - aditihonagekar
-- 
+  
 ## 🧾 Problem Statement
 
 **Overview:**  
